@@ -117,87 +117,129 @@ func RawG(query string, args ...interface{}) *Query {
 // Exec executes a query that does not need a row returned
 func (q *Query) Exec(exec boil.Executor) (sql.Result, error) {
 	qs, args := BuildQuery(q)
-	before := time.Now()
+
+	var before *time.Time
+	if boil.DebugMode {
+		now := time.Now()
+		before = &now
+	}
+
 	res, err := exec.Exec(qs, args...)
 
 	if boil.DebugMode {
 		after := time.Now()
-		duration := after.Sub(before)
+		duration := after.Sub(*before)
 		boil.DebugFormatter(boil.DebugWriter, qs, args, duration)
 	}
+
 	return res, err
 }
 
 // QueryRow executes the query for the One finisher and returns a row
 func (q *Query) QueryRow(exec boil.Executor) *sql.Row {
 	qs, args := BuildQuery(q)
-	before := time.Now()
+
+	var before *time.Time
+	if boil.DebugMode {
+		now := time.Now()
+		before = &now
+	}
+
 	row := exec.QueryRow(qs, args...)
 
 	if boil.DebugMode {
 		after := time.Now()
-		duration := after.Sub(before)
+		duration := after.Sub(*before)
 		boil.DebugFormatter(boil.DebugWriter, qs, args, duration)
 	}
+
 	return row
 }
 
 // Query executes the query for the All finisher and returns multiple rows
 func (q *Query) Query(exec boil.Executor) (*sql.Rows, error) {
 	qs, args := BuildQuery(q)
-	before := time.Now()
+
+	var before *time.Time
+	if boil.DebugMode {
+		now := time.Now()
+		before = &now
+	}
+
 	rows, err := exec.Query(qs, args...)
 
 	if boil.DebugMode {
 		after := time.Now()
-		duration := after.Sub(before)
+		duration := after.Sub(*before)
 		boil.DebugFormatter(boil.DebugWriter, qs, args, duration)
 	}
+
 	return rows, err
 }
 
 // ExecContext executes a query that does not need a row returned
 func (q *Query) ExecContext(ctx context.Context, exec boil.ContextExecutor) (sql.Result, error) {
 	qs, args := BuildQuery(q)
-	before := time.Now()
+
+	var before *time.Time
+	if boil.DebugMode {
+		now := time.Now()
+		before = &now
+	}
+
 	res, err := exec.ExecContext(ctx, qs, args...)
 
 	if boil.IsDebug(ctx) {
 		after := time.Now()
-		duration := after.Sub(before)
+		duration := after.Sub(*before)
 		writer := boil.DebugWriterFrom(ctx)
 		boil.DebugFormatter(writer, qs, args, duration)
 	}
+
 	return res, err
 }
 
 // QueryRowContext executes the query for the One finisher and returns a row
 func (q *Query) QueryRowContext(ctx context.Context, exec boil.ContextExecutor) *sql.Row {
 	qs, args := BuildQuery(q)
-	before := time.Now()
+
+	var before *time.Time
+	if boil.DebugMode {
+		now := time.Now()
+		before = &now
+	}
+
 	row := exec.QueryRowContext(ctx, qs, args...)
 
 	if boil.IsDebug(ctx) {
 		after := time.Now()
-		duration := after.Sub(before)
+		duration := after.Sub(*before)
 		writer := boil.DebugWriterFrom(ctx)
 		boil.DebugFormatter(writer, qs, args, duration)
 	}
+
 	return row
 }
 
 // QueryContext executes the query for the All finisher and returns multiple rows
 func (q *Query) QueryContext(ctx context.Context, exec boil.ContextExecutor) (*sql.Rows, error) {
 	qs, args := BuildQuery(q)
-	before := time.Now()
+
+	var before *time.Time
+	if boil.DebugMode {
+		now := time.Now()
+		before = &now
+	}
+
 	rows, err := exec.QueryContext(ctx, qs, args...)
-	
+
 	if boil.IsDebug(ctx) {
 		after := time.Now()
-		duration := after.Sub(before)
+		duration := after.Sub(*before)
 		writer := boil.DebugWriterFrom(ctx)
 		boil.DebugFormatter(writer, qs, args, duration)
 	}
+
 	return rows, err
 }
 
