@@ -18,7 +18,7 @@ var DebugMode = false
 var DebugWriter io.Writer = os.Stdout
 
 // DebugFormatter formats query and args
-var DebugFormatter = func(writer io.Writer, query string, args []interface{}, duration time.Duration) {
+var DebugFormatter = func(ctx context.Context, writer io.Writer, query string, args []interface{}, duration time.Duration) {
 	fmt.Fprintln(writer, query)
 	fmt.Fprintln(writer, args)
 	fmt.Fprintln(writer, duration)

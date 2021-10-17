@@ -129,7 +129,7 @@ func (q *Query) Exec(exec boil.Executor) (sql.Result, error) {
 	if boil.DebugMode {
 		after := time.Now()
 		duration := after.Sub(*before)
-		boil.DebugFormatter(boil.DebugWriter, qs, args, duration)
+		boil.DebugFormatter(context.Background(), boil.DebugWriter, qs, args, duration)
 	}
 
 	return res, err
@@ -150,7 +150,7 @@ func (q *Query) QueryRow(exec boil.Executor) *sql.Row {
 	if boil.DebugMode {
 		after := time.Now()
 		duration := after.Sub(*before)
-		boil.DebugFormatter(boil.DebugWriter, qs, args, duration)
+		boil.DebugFormatter(context.Background(), boil.DebugWriter, qs, args, duration)
 	}
 
 	return row
@@ -171,7 +171,7 @@ func (q *Query) Query(exec boil.Executor) (*sql.Rows, error) {
 	if boil.DebugMode {
 		after := time.Now()
 		duration := after.Sub(*before)
-		boil.DebugFormatter(boil.DebugWriter, qs, args, duration)
+		boil.DebugFormatter(context.Background(), boil.DebugWriter, qs, args, duration)
 	}
 
 	return rows, err
@@ -193,7 +193,7 @@ func (q *Query) ExecContext(ctx context.Context, exec boil.ContextExecutor) (sql
 		after := time.Now()
 		duration := after.Sub(*before)
 		writer := boil.DebugWriterFrom(ctx)
-		boil.DebugFormatter(writer, qs, args, duration)
+		boil.DebugFormatter(ctx, writer, qs, args, duration)
 	}
 
 	return res, err
@@ -215,7 +215,7 @@ func (q *Query) QueryRowContext(ctx context.Context, exec boil.ContextExecutor) 
 		after := time.Now()
 		duration := after.Sub(*before)
 		writer := boil.DebugWriterFrom(ctx)
-		boil.DebugFormatter(writer, qs, args, duration)
+		boil.DebugFormatter(ctx, writer, qs, args, duration)
 	}
 
 	return row
@@ -237,7 +237,7 @@ func (q *Query) QueryContext(ctx context.Context, exec boil.ContextExecutor) (*s
 		after := time.Now()
 		duration := after.Sub(*before)
 		writer := boil.DebugWriterFrom(ctx)
-		boil.DebugFormatter(writer, qs, args, duration)
+		boil.DebugFormatter(ctx, writer, qs, args, duration)
 	}
 
 	return rows, err
